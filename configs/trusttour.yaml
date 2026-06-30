@@ -1,0 +1,58 @@
+# TrustTour (DS-SViT + Trust Assessment Module) experiment configuration.
+seed: 42
+img_size: 224
+batch_size: 32
+epochs: 50
+early_stopping_patience: 10
+
+model:
+  name: trusttour
+  embed_dim: 384
+  depth: 6
+  num_heads: 6
+  mlp_ratio: 4.0
+  drop_rate: 0.1
+  forensic_in_channels: 64
+  fusion_heads: 6
+
+trust_module:
+  metadata_dim: 8
+  source_dim: 6
+  hidden_dim: 64
+  trust_loss_weight: 0.3
+
+optimizer:
+  name: adamw
+  lr: 1.0e-4
+  weight_decay: 1.0e-4
+
+scheduler:
+  name: cosine
+  t_max: 50
+
+data:
+  root: data/CIFAKE
+  dataset: cifake
+  tourism: true
+  num_workers: 4
+
+decision:
+  tau1: 0.35
+  tau2: 0.65
+  impact_factor: 1.0
+
+hitl_rl:
+  episodes: 200
+  lr: 0.01
+  human_cost: 0.1
+  trust_lambda: 0.7
+
+game:
+  iterations: 60
+  lr_platform: 0.05
+  lr_adversary: 0.05
+
+output:
+  checkpoint_dir: checkpoints
+  log_dir: runs
+  results_dir: outputs

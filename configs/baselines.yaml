@@ -1,0 +1,38 @@
+# Configuration for training baseline AI-generated image detectors
+# (Xception, F3Net, Swin, AIDE, IAPL) under the same protocol as TrustTour.
+seed: 42
+img_size: 224
+batch_size: 32
+epochs: 50
+early_stopping_patience: 10
+
+optimizer:
+  name: adamw
+  lr: 1.0e-4
+  weight_decay: 1.0e-4
+
+scheduler:
+  name: cosine
+  t_max: 50
+
+data:
+  root: data/CIFAKE
+  dataset: cifake
+  tourism: false
+  num_workers: 4
+
+models:
+  xception: {}
+  f3net: {}
+  swin:
+    pretrained: true
+  aide:
+    freeze_clip: true
+  iapl:
+    num_prompts: 8
+    embed_dim: 384
+
+output:
+  checkpoint_dir: checkpoints
+  log_dir: runs
+  results_dir: outputs

@@ -1,0 +1,31 @@
+# Default experimental configuration, mirrors paper Table 3.
+seed: 42
+img_size: 224
+batch_size: 32
+epochs: 50
+early_stopping_patience: 10
+
+optimizer:
+  name: adamw
+  lr: 1.0e-4
+  weight_decay: 1.0e-4
+
+scheduler:
+  name: cosine
+  t_max: 50
+
+data:
+  root: data/CIFAKE
+  dataset: cifake          # cifake | synthbuster
+  tourism: true            # use TourismInformationDataset (adds metadata/source)
+  num_workers: 4
+
+decision:
+  tau1: 0.35
+  tau2: 0.65
+  impact_factor: 1.0       # omega in Eq. (17)
+
+output:
+  checkpoint_dir: checkpoints
+  log_dir: runs
+  results_dir: outputs
